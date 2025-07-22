@@ -278,20 +278,20 @@ class PasswordResetConfirmView(APIView):
         serializer.save()
         return Response({"message": "Password has been reset successfully"}, status=status.HTTP_200_OK)
 
-# def loginpage(request):
-#     if request.method == "POST":
-#         form = AuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request, user)
-#             messages.success(request, "Login successful!")
-#             return redirect("index")
-#         else:
-#             messages.error(request, "Invalid username or password.")
-#     else:
-#         form = AuthenticationForm()
+def loginpage(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, "Login successful!")
+            return redirect("index")
+        else:
+            messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
 
-#     return render(request, "loginpage.html", {"form": form})
+    return render(request, "loginpage.html", {"form": form})
 
 def logoutpage(request):
     logout(request)

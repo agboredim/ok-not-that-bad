@@ -22,11 +22,12 @@ urlpatterns = [
     path('password/reset/', PasswordResetRequestView.as_view(), name='password_reset'),
     path('password/reset/confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
 
-    path('', views.index, name="index"),
+    path('index/', views.index, name="index"),
     path('order/', order_list, name='order_list'),
     path('order/<int:order_id>/', order_detail_view, name='order_detail'),
     path('address/', address_detail, name='address_detail'),
     path('logoutpage/', views.logoutpage, name='logoutpage'),
+    path('', views.loginpage, name='loginpage'),
     path('api/delivery-fee/estimate/', DeliveryFeeEstimateView.as_view(), name='delivery_fee_estimate'),
 
 ]
