@@ -180,13 +180,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'core.User'
 
-DJOSER = {
-    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
-    "SEND_ACTIVATION_EMAIL": True,
-    "SEND_CONFIRMATION_EMAIL": True,
-    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,  
-}
-
 
 # REST_FRAMEWORK = {
 #     'PAGE_SIZE': 3
@@ -227,15 +220,19 @@ EMAIL_HOST_PASSWORD = "xtzu luim uuvr iapu"
 # "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3MjMxMDM0MywiaWF0IjoxNjcyMTM3NTQzLCJqdGkiOiI4ZTA2ZjFmNTZmMjg0NjdjOGUxYTczMmIwZWM3ODkwZSIsInVzZXJfaWQiOjh9.cmnXNQBWapetuPG2TQpoVNjm6NEvzT7awz-wvjPrPUg",
 #     "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcyMjIzOTQzLCJpYXQiOjE2NzIxMzc1NDMsImp0aSI6ImQxYjcxNzBiMjgyNTRlNjg4ZjgwNTM0NGViMTYzYjU5IiwidXNlcl9pZCI6OH0.garu_BNiSM5fB48TRbRMXypgECuSmt4ErveOVsynISQ"
 
+
 DJOSER = {
-    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",  # uid (not uidb64)
+    'SERIALIZERS':{
+        'user_create': "core.serializers.MyUserCreateSerializer"
+    },
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
     "SEND_CONFIRMATION_EMAIL": True,
-    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
-    'SERIALIZERS': {
-        'user_create': "core.serializers.MyUserCreateSerializer"
-    }
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,  
+    "ACTIVATION_URL": "activate/{uid}/{token}/",  # ✅ This is what’s needed
 }
+
+
 
 PAYSTACK_SECRET_KEY = "kjzfshjhhskjskslaklkadkdooiwanan acnmak;a;a;"  # Replace with your real Paystack secret key
 PAYSTACK_PUBLIC_KEY = "pk_nmnssmfsllkskklsfkljalalalkakd  a kkak"  # Optional: useful if using frontend
