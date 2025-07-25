@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "_e)op=dl#c3o=yf=z0_8@)nqb*@a!d5z2&7%1sv8^pp76qlbsu"
 
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['mbadmin.ng', 'www.mbadmin.ng', '102.212.246.14',]
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -63,12 +63,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5500", 
-    "http://localhost:3000",
-    "http://127.0.0.1:5501",
-    "http://127.0.0.1:5502", 
-    "http://localhost:5502",
-    
+    "https://mb-shawarma-bite.ng",
 ]
 
 
@@ -107,15 +102,13 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mbshawarmabite',
-        'USER': 'postgres',
-        'PASSWORD': '292611',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgres://postgres:ofemmbang@localhost:5432/mbshawarmabite'),        
+        conn_max_age=600,
+        ssl_require=True, 
+    )
 }
+
 
 
 
