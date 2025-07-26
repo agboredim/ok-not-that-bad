@@ -265,18 +265,6 @@ class AddressViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class PasswordResetRequestView(APIView):
-    def post(self, request):
-        serializer = PasswordResetSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response({"message": "Password reset email sent"}, status=status.HTTP_200_OK)
-
-class PasswordResetConfirmView(APIView):
-    def post(self, request):
-        serializer = PasswordResetConfirmSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({"message": "Password has been reset successfully"}, status=status.HTTP_200_OK)
 
 def loginpage(request):
     if request.method == "POST":

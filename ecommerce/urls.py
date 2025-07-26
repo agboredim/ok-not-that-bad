@@ -14,22 +14,26 @@ from api.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Your app's API routes
     path("api/", include("api.urls"), name="api"),
 
-    path("auth/", include('djoser.urls')),
-    path("auth/", include('djoser.urls.jwt')),
+    # Djoser auth (includes password reset, registration, etc.)
+    path("auth/", include('djoser.urls')),           # <-- includes reset endpoints
+    # Optional: add if you use JWT login/logout
+    path("auth/", include('djoser.urls.jwt')),       # <-- only needed if using JWT login
 
-    path('password/reset/', PasswordResetRequestView.as_view(), name='password_reset'),
-    path('password/reset/confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-
+    # Other views
     path('index/', views.index, name="index"),
     path('order/', order_list, name='order_list'),
     path('order/<int:order_id>/', order_detail_view, name='order_detail'),
     path('address/', address_detail, name='address_detail'),
     path('logoutpage/', views.logoutpage, name='logoutpage'),
     path('', views.loginpage, name='loginpage'),
-    path('api/delivery-fee/estimate/', DeliveryFeeEstimateView.as_view(), name='delivery_fee_estimate'),
 
+    # Delivery fee estimation API
+    path('api/delivery-fee/estimate/', DeliveryFeeEstimateView.as_view(), name='delivery_fee_estimate'),
 ]
 
+# Serve media files
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

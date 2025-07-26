@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "_e)op=dl#c3o=yf=z0_8@)nqb*@a!d5z2&7%1sv8^pp76qlbsu"
 
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['mbadmin.ng', 'www.mbadmin.ng', '102.212.246.14',]
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -63,7 +63,12 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://mb-shawarma-bite.ng",
+    "http://127.0.0.1:5500", 
+    "http://localhost:3000",
+    "http://127.0.0.1:5501",
+    "http://127.0.0.1:5502", 
+    "http://localhost:5502",
+    
 ]
 
 
@@ -102,13 +107,15 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgres://postgres:ofemmbang@localhost:5432/mbshawarmabite'),        
-        conn_max_age=600,
-        ssl_require=True, 
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mbshawarmabite',
+        'USER': 'postgres',
+        'PASSWORD': '292611',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
-
 
 
 
@@ -215,10 +222,11 @@ EMAIL_HOST_PASSWORD = "xtzu luim uuvr iapu"
 
 
 DJOSER = {
+    'LOGIN_FIELD': 'email',
     'SERIALIZERS':{
         'user_create': "core.serializers.MyUserCreateSerializer"
     },
-    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+    "PASSWORD_RESET_CONFIRM_URL": "https://mb-shawarma-bite.ng/password_reset.html?uid={uid}&token={token}",
     "SEND_ACTIVATION_EMAIL": True,
     "SEND_CONFIRMATION_EMAIL": True,
     "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,  
